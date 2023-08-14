@@ -1,0 +1,17 @@
+Time Complexity: O(N) {Because of a loop which iterate to whole array and the find() function of map takes O(1) time for searching key}
+
+Space Complexity: O(N) {As we are using map to store key-values}
+
+vector<int> twoSum(vector<int>& nums, int target) {
+        int n=nums.size();
+        // declaration of unordered map with key and value of int type.
+        unordered_map<int,int> m;
+            for(int i=0;i<n;i++){
+                // the find() function search for key {target-nums[i]} in the hash table, if found so it return the iterator to that key otherwise it will return the iterator after the last element which is (m.end())
+                if(m.find(target-nums[i])!=m.end()){
+                    return {i,m[target-nums[i]]};
+                }
+                m[nums[i]]=i;
+            }
+        return {};
+    }

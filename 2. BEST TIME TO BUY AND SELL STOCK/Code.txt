@@ -1,0 +1,22 @@
+Time Complexity: O(N) {Because we traversing the array only once}
+Space Complexity: O(1)
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int n=prices.size();
+        int buy=1e4+1, sell, profit=0;
+        for(int i=0;i<n;i++){
+            // checking whether the current price of stock is lower than the price we actually buy, if so then buy this stock.
+            if(buy > prices[i]){
+                buy=prices[i];
+            }
+            sell=prices[i]-buy;
+            // checking whether after selling at this day, Is our profit is higher than profit we got so far, if it is so update profit.
+            if(sell > profit){
+                profit=sell;
+            }
+        }
+        return profit;
+    }
+};

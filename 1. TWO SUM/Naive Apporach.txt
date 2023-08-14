@@ -1,0 +1,20 @@
+Time Complexity: O(N^2) {Because of Nested Loops}
+Space Complexity: O(1)
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        int n=nums.size();
+        for(int i=0;i<n-1;i++){
+            // starting j from i+1 to avoid i == j and also reduce computation which are already done.
+            for(int j=i+1;j<n;j++){
+                // checking the sum of values of i and j index whether it is equal to target or not.
+                if(nums[i]+nums[j]==target){
+                    return {i,j};
+                }
+            }
+        }
+        // returning an empty vector at last to avoid error that function doesn't return any value since the return value in loops are local.
+        return {};
+    }
+};
