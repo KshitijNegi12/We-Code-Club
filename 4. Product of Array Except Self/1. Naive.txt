@@ -1,0 +1,23 @@
+Naive approach:
+
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        //naive approach 
+        int n=nums.size();
+        vector<int> ans(n,0);
+        for(int i=0;i<n;i++)//for every index of answer array
+        {
+            int temp=1;
+            for(int j=0;j<n;j++)//for every index of nums array
+            {
+                if(i!=j)//except ith index
+                {
+                    temp=temp*nums[j];
+                }
+            }
+            ans[i]=temp;
+        }
+        return ans;
+    }
+};
