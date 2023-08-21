@@ -1,0 +1,23 @@
+Optimize approach: 
+
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        //optimise approach
+        int n=nums.size();
+        vector<int> ans(n,0);
+        //prefix
+        int pref=1;
+        for(int i=0;i<n;i++){
+            ans[i]=pref;
+            pref=pref*nums[i];
+        }
+        //suffix
+        int suf=1;
+        for(int i=n-1;i>=0;i--){
+            ans[i]=ans[i]*suf;//ans[i]=prefix*suffix
+            suf=suf*nums[i];
+        }
+        return ans;
+    }
+};
