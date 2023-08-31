@@ -1,0 +1,25 @@
+Time Complexity: O(log(n))
+Space Complexity: O(1)
+
+class Solution {
+public:
+    int findMin(vector<int>& nums) {
+        int l=0,h=nums.size()-1,mi=INT_MAX,mid;
+        while(l<=h){
+            if(nums[l]<=nums[h]){
+                mi=min(mi,nums[l]);
+                return mi;
+            }
+            mid=(l+h)/2;
+            if(nums[l]<=nums[mid]){
+                mi=min(mi,nums[l]);
+                l=mid+1;
+            }
+            else if(nums[mid]<=nums[h]){
+                mi=min(mi,nums[mid]);
+                h=mid-1;
+            }
+        } 
+        return mi;   
+    }
+};
