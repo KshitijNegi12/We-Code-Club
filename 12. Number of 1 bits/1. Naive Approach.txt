@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int hammingWeight(uint32_t n) {
+        //direct approach using right shift operator
+        int ans=0;
+        while(n!=0){
+            ans+=n&1;//if last /rightmost bit is set then ans++
+            //else if last/rightmost bit is not set then ans=ans
+            n=n>>1;
+        }
+        return ans;
+    }
+};

@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int hammingWeight(uint32_t n) {
+        //optimise approach
+        //only runs as many times as number of 1 bits present
+        int ans=0;
+        while(n!=0){
+            n=n&(n-1);
+            ans++;
+        }
+        return ans;
+    }
+};
