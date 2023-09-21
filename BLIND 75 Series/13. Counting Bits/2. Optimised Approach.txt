@@ -1,0 +1,17 @@
+vector<int> countBits(int n) {
+
+        vector <int> setBits(n+1);
+
+        setBits[0] = 0;
+
+        for( int i = 1; i <= n; i++)
+        {
+            // odd
+            if( i & 1) setBits[i] = setBits[i/2] + 1;
+
+            // even
+            else setBits[i] = setBits[i/2];
+        }
+
+        return setBits;
+    }
