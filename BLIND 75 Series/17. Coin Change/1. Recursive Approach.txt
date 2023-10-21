@@ -1,0 +1,22 @@
+
+class Solution {
+public:
+    int sol(vector<int>&coins,int amount){
+        if(amount ==0)return 0;
+        if(amount<0) return INT_MAX;
+
+        int minimum=INT_MAX;
+        for(int i=0;i<coins.size();i++){
+            int x=sol(coins,amount-coins[i]);
+            if(x!=INT_MAX){
+                minimum=min(minimum,1+x);
+            }
+        }
+        return minimum;
+    }
+    int coinChange(vector<int>& coins, int amount) {
+        int x=sol(coins,amount);
+        if(x==INT_MAX) return -1;
+        return x;
+    }
+};
