@@ -1,0 +1,18 @@
+class Solution {
+public:
+    bool rest(string s, vector<string>&v){
+        if(s.length()==0){
+            return true;
+        }
+        for(int i=1;i<=s.length();i++){
+            if(find(v.begin(),v.end(),s.substr(0,i))!=v.end() && rest(s.substr(i),v)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    bool wordBreak(string s, vector<string>& v) {
+        return rest(s,v);
+    }
+};

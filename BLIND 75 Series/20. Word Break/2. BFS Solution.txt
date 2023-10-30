@@ -1,0 +1,25 @@
+class Solution {
+public:
+    bool wordBreak(string s, vector<string>& wd) {
+        int n=s.size();
+        //BFS
+        unordered_set<int> st;
+        queue<int> q;
+        q.push(0);
+        while(!q.empty()){
+            int start=q.front();
+            q.pop();
+            if(st.find(start)==st.end()){
+                st.insert(start);
+                for(int i=start;i<n;i++){
+                    string w=s.substr(start,i-start+1);
+                    if(find(wd.begin(),wd.end(),w)!=wd.end()){
+                        q.push(i+1);
+                        if(i+1==n) return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+};
