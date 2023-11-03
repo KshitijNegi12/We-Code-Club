@@ -1,0 +1,47 @@
+class Solution {
+    int f( vector<int> arr)
+    {
+        int prev2 = 0;
+        int prev1 = arr[0];
+
+        int n = arr.size();
+
+        for(int i = 1; i < n; i++)
+        {
+            int pick = arr[i] + prev2;
+            int notPick = prev1;
+            
+            int currMax = max(pick, notPick);
+            prev2 = prev1;
+            prev1 = currMax;
+        }
+        return prev1;
+    }
+public:
+    int rob(vector<int>& nums) {
+        
+        vector <int> arr1; 
+        vector <int> arr2; 
+
+        int n = nums.size();
+
+        if( n == 1) return nums[0]; // edge case
+
+        for( int i = 0; i < n; i++)
+        {
+            if(i != n-1)
+            {
+                arr1.push_back(nums[i]);
+            }
+
+            if( i != 0)
+            {
+                arr2.push_back(nums[i]);
+            }
+        }
+
+        int case1 = f(arr1);
+        int case2 = f(arr2);
+        return max(case1, case2);
+    }
+};
