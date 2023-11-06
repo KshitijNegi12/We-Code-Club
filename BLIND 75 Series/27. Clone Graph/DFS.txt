@@ -1,0 +1,25 @@
+class Solution {
+public:
+    Node* dfs(Node* source,unordered_map<Node*,Node*> &mp){
+        Node* clone=new Node(source->val);//cloning of node
+        mp[source]=clone;//store cloned node in map
+        for(Node* i:source->neighbors){//traverse the neighbors of given source node
+            if(mp.find(i)!=mp.end()){//if we already clone current neighbor
+                clone->neighbors.push_back(mp[i]);//store that neighbor clone in neighbors list
+            }
+            else{
+                clone->neighbors.push_back(dfs(i,mp));//apply dfs on that not cloned neighbor
+            }
+        }
+        return clone;//return the node
+    }
+    Node* cloneGraph(Node* node) {
+        if(node==NULL) return NULL;
+        if(node->neighbors.size()==0){
+            Node* clone=new Node(node->val);
+            return clone;
+        }
+        unordered_map<Node*,Node*> mp;//old node as keys and new node as values
+        return dfs(node,mp);
+    }
+};
