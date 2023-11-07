@@ -1,0 +1,54 @@
+class Solution {
+public:
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+       // converting given matrix to graph
+
+         int V = numCourses; // no of vertices = no. of courses
+         vector<int> adj[V];
+        for( auto &vect : prerequisites)
+        {
+            // [a, b] means : 'b' should be before 'a' OR "b->a"
+            int a = vect[0];
+            int b = vect[1];
+                 
+            adj[b].push_back(a);
+        }
+
+         // now we will just perfrom algo to perfrom topo. sort
+         vector<int> topo; // to store topo. ordering
+
+         int inDeg[V];
+         for( int i = 0; i < V; i++) inDeg[i] = 0;
+         // calculating in-degree
+         for( int i = 0; i < V; i++)
+         {
+             for( auto it : adj[i])
+             {
+                 inDeg[it]++;
+             }
+         }
+
+         queue<int> Q;
+         //pushing nods with degree 0 into Q
+         for( int i = 0; i < V; i++) 
+         {
+             if( inDeg[i] == 0) Q.push(i);
+         }
+
+         while( !Q.empty())
+         {
+             int node = Q.front();
+             Q.pop();
+             topo.push_back(node);
+
+             for(auto it : adj[node])
+             {
+                 inDeg[it]--;
+                 if(inDeg[it] == 0) Q.push(it);
+             }
+         }
+
+         if( topo.size() == V) return true;
+         return false;
+    }
+};
