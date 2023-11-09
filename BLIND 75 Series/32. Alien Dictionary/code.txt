@@ -1,0 +1,47 @@
+class Solution{
+    public:
+    string topological_sort(vector<int> g[],int v){
+        vector<int> indegree(v,0);
+        for(int i=0;i<v;i++){
+            for(int j:g[i]){
+                indegree[j]++;//incrementing indegree based on edges
+            }
+        }
+        queue<int> q;
+        for(int i=0;i<v;i++){
+            if(indegree[i]==0){
+                q.push(i);
+            }
+        }
+        string ans="";
+        while(!q.empty()){
+            int top=q.front();
+            q.pop();
+            ans.push_back((char)('a'+top));
+            for(int i=0;i<g[top].size();i++){
+                indegree[g[top][i]]--;
+                if(indegree[g[top][i]]==0){
+                    q.push(g[top][i]);
+                }
+            }
+        }
+        if(ans.size()!=v)return "";//if there is a cycle not a valid dictionary
+        return ans;
+    }
+    string findOrder(string dict[], int N, int K) {
+        vector<int> g[K];
+        //traverse dictionary
+        for(int i=0;i<N-1;i++){
+            string s1=dict[i];
+            string s2=dict[i+1];
+            //comparison of string
+            for(int j=0;j<min(s1.size(),s2.size());j++){
+                if(s1[j]!=s2[j]){
+                    g[s1[j]-'a'].push_back(s2[j]-'a');
+                    break;
+                }
+            }
+        }
+        return topological_sort(g,K);
+    }
+};

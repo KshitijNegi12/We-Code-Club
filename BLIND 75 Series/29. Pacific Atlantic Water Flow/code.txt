@@ -1,0 +1,80 @@
+class Solution {
+
+    void dfs( int r, int c, vector<vector<int>> &heights, vector<vector<bool>> &visited, int dRow[], int dCol[])
+    {
+
+        int n = heights.size();
+
+        int m = heights[0].size();
+
+        visited[r][c] = 1;
+
+        for( int i = 0; i < 4; i++)
+        {
+            int nRow = r + dRow[i];
+            int nCol = c + dCol[i];
+
+            if( nRow >= 0 && nRow < n && nCol >= 0 && nCol < m &&
+              !visited[nRow][nCol] && heights[nRow][nCol] >= heights[r][c])
+             {
+                 dfs(nRow, nCol, heights, visited, dRow, dCol);
+             }
+        }
+
+
+    }
+public:
+    vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {
+        
+        int n = heights.size();
+
+        int m = heights[0].size();
+
+        vector <vector<int>> ans;
+
+        vector<vector<bool>> pacific (n, vector<bool> (m, 0));
+        vector<vector<bool>> atln (n, vector<bool> (m, 0));
+
+        int dRow[] = {-1, 0, 0, 1};
+
+        int dCol[] = { 0, 1, -1, 0};
+
+        // first row
+        for( int i = 0; i < m; i++)
+        {
+            dfs(0, i, heights, pacific, dRow, dCol);
+        }
+
+        // first col
+        for(int i = 0; i < n ; i++)
+        {
+            dfs(i, 0, heights, pacific, dRow, dCol);
+        }
+
+        // last col
+        for(int i = 0; i < n; i++)
+        {
+            dfs( i, m-1, heights, atln, dRow, dCol);
+        }
+
+        // last row
+
+        for( int i = 0; i < m; i++)
+        {
+            dfs( n-1, i, heights, atln, dRow, dCol);
+        }
+
+        for( int i = 0; i < n; i++)
+        {
+            for( int j = 0; j < m; j++)
+            {
+                if( pacific[i][j] == 1 && atln[i][j] == 1)
+                {
+                    ans.push_back({i, j});
+                }
+            }
+        }
+
+        return ans;
+    }
+};
