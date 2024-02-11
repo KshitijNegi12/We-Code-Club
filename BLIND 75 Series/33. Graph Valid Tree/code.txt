@@ -1,0 +1,36 @@
+class Solution {
+  public:
+    bool DFS(vector<vector<int>>&edges, int n, int par, vector<bool>&vis){
+        vis[n]=true;
+        for(auto &i:edges[n]){
+            if(vis[i]==false){
+                if(DFS(edges, i, n, vis)==true){
+                    return true;
+                }
+            }
+            else if(i!=par){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    int isTree(int n, int m, vector<vector<int>> &adj) {
+        // code here
+        vector<vector<int>> edges(n);
+        for(int i=0;i<m;i++){
+            edges[adj[i][0]].push_back(adj[i][1]);
+            edges[adj[i][1]].push_back(adj[i][0]);
+        }
+        vector<bool> vis(n, false);
+        if(DFS(edges, 0, -1, vis)==true){
+            return false;
+        }
+        for(int i=0;i<n;i++){
+            if(vis[i]==false){
+                return false;
+            }
+        }
+        return true;
+    }
+};
