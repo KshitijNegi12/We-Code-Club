@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+void DFS(vector<vector<int>>&adj, vector<bool>&vis, int n){
+    vis[n]=true;
+    for(auto &i:adj[n]){
+        if(!vis[i]){
+            DFS(adj, vis, i);
+        }
+    }
+}
+
+int main(){
+	int n,e;
+    cin>>n>>e;
+    int u,v;
+    vector<vector<int>> adj(n);
+    for(int i=0;i<e;i++){
+        cin>>u>>v;
+        u--,v--;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+    int res=0;
+    vector<bool> vis(n,false);
+    for(int i=0;i<n;i++){
+        if(!vis[i]){
+            res++;
+            DFS(adj, vis, i);
+        }
+    }
+    cout<<res<<endl;
+}
