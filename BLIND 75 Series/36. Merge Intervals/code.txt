@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& in) {
+        sort(in.begin(),in.end());
+        vector<vector<int>> v;
+        for(int i=0;i<in.size();i++){
+            int j=i+1;
+            while(j<in.size() && in[i][1]>=in[j][0]){
+                if(in[i][1]<in[j][1]) in[i][1]=in[j][1];
+                j++;
+            }
+            if(j==in.size()){
+                v.push_back(in[i]);
+                return v;
+            }
+            v.push_back(in[i]);
+            i=j-1;
+        }
+        return v;
+    }
+};
