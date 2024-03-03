@@ -1,0 +1,23 @@
+class Solution {
+public:
+    /**
+     * @param intervals: an array of meeting time intervals
+     * @return: the minimum number of conference rooms required
+     */
+    static bool cmp(Interval a,Interval b){
+        if(a.start> b.start)return 0;
+        return 1;
+    }
+    int minMeetingRooms(vector<Interval> &intervals) {
+        // Write your code here
+        int  n=intervals.size();
+        sort(intervals.begin(),intervals.end(),cmp);
+        priority_queue<int,vector<int>,greater<int>>pq;
+        pq.push(intervals[0].end);
+        for(int i=1;i<n;i++){
+            if(intervals[i].start >=pq.top())pq.pop();
+            pq.push(intervals[i].end);
+        }
+        return pq.size();
+    }
+};
