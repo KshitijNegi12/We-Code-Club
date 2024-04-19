@@ -1,0 +1,53 @@
+class Solution {
+public:
+    string minWindow(string s, string t) {
+        
+        vector <int> freq(128, 0);
+
+        for( int i = 0; i < t.size(); i++)
+        {
+            freq[t[i]]++;
+        }
+
+        int countReq = t.size();
+
+        int i = 0, j = 0, n = s.size();
+
+        int minLen = INT_MAX;
+        int st = 0;
+
+        while( j < n )
+        {
+
+            if( freq[s[j]] > 0 )
+            {
+                countReq--;
+            }
+            freq[s[j]]--;
+
+            while( countReq == 0 )
+            {
+                if( j-i+1 < minLen)
+                {
+                    minLen = j-i+1;
+                    st = i;
+                }
+
+                freq[s[i]]++;
+
+                if( freq[s[i]] > 0 )
+                {
+                    countReq++;
+                }
+                i++;
+            }
+
+            j++;
+        }
+
+        if( minLen == INT_MAX ) return "";
+
+        return s.substr(st, minLen);
+
+    }
+};
