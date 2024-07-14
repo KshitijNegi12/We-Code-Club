@@ -1,0 +1,15 @@
+class Solution {
+public:
+    bool isValidBST(TreeNode* root , long long int min=-100000000000,long long max=1000000000000) {
+        if(root==NULL){
+            return true;
+        }
+        if(root->val<=min || root->val>=max){
+            return false;
+        }
+        return isValidBST(root->left,min,root->val) && isValidBST(root->right,root->val,max);
+    }
+};
+
+//time complexity: O(n)
+//space complexity:O(n)

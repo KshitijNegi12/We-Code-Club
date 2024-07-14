@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int ans=-1;
+    void inorder(TreeNode* root,int k,int &count){
+        if(root==NULL){
+            return;
+        }
+        inorder(root->left,k,count);
+        count++;
+        if(count==k){
+            ans=root->val;
+        }
+        inorder(root->right,k,count);
+    }
+    int kthSmallest(TreeNode* root, int k) {
+        int count=0;
+        inorder(root,k,count);
+        return ans;
+    }
+};
+
+//time complexity=O(n)
+//space complexity=O(n)
+
+//if we use loop for the inorder traversal 
+//time complexity=O(n)
+//space complexity=O(1)
